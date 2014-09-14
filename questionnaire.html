@@ -1,0 +1,1000 @@
+<head>
+  <title>Questionnaire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="jquery.mobile-1.4.3.min.css" />
+  <script src="jquery-1.11.1.min.js"></script>
+  <script src="jquery.mobile-1.4.3.min.js"></script>
+  <script type="text/javascript" src="script_quest.js"></script>
+  <script type="text/javascript" src="localstoragedb.min.js"> </script> 
+  <!--<link rel="stylesheet" href="mycss.css" />-->
+  <!-- a script that prevent validation on enter -->
+  <script type="text/javascript">
+    function stopEnterKey(evt) 
+    {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) { return false; }
+    }
+    document.onkeypress = stopEnterKey;
+  </script>
+</head>
+
+<body>
+     <form id="myform">
+       {{> insertion }} 
+     </form> 
+</body>
+
+<template name="insertion">
+
+  <div data-role="page" id="page_1">   
+  <div data-role="header">
+       <h1>MODULE A : RENSEIGNEMENTS SUR LE REPONDANT </h1>
+       <input id="debut" name="debut_interview" type="hidden" />
+       <input id="fin" name="fin_interview" type="hidden"/>
+  </div><!-- /header -->
+  <div data-role="content">  
+     <legend> IDENTIFICATION DU MENAGE </legend> 
+     <input id="identifiant" autofocus maxlength="12"  onkeydown="prevent_caract(event,'identifiant');"
+            pattern="^[0-9]{12}"  required placeholder="Entrez un nombre à 12 chiffres" name="identifiant"  type="number" />                  
+     <p> A1. Nom et prénoms du Chef de Ménage:</p>
+     <input id="nom_prenom_CM" name="nom_prenom_CM" type="text" />    
+     <p> A2. Adresse : </p>
+     <input id="adresse" name="adresse" onkeydown="prevent_num(event,'adresse');" type="text"/>
+     <p> A3. Localisation exacte :</p>
+    <input id="localisation" onkeydown="prevent_num(event,'localisation');" name="localisation" type="text" />                      
+    <p> A4. Région :</p>
+    <input id="region" maxlength="2" placeholder="Entrez un nombre à 2 chiffres" name="region" onkeydown="prevent_caract(event,'region');" type="number"  />
+    <p> A5. District :</p>
+    <input id="district" maxlength="3" placeholder="Entrez un nombre à 3 chiffres" onkeydown="prevent_caract(event,'district');" name="district" type="number"  />                                                                     
+     <p> A6. Commune :</p>
+    <input id="commune" maxlength="6"   placeholder="Entrez un nombre à 6 chiffres" onkeydown="prevent_caract(event,'commune');" name="commune" type="number"  /> 
+    <p> A7. Fokontany :</p>
+    <input maxlength="2" id='fokontany' placeholder="Entrez un nombre à 2 chiffres" onkeydown="prevent_caract(event,'fokontany');"  name="fokontany" type="number"  />
+    <p> A8. Téléphone :</p>
+    <input maxlength="10" id="numtel" placeholder="Entrez un numéro de téléphone  03x xxx xx" onkeydown="prevent_caract(event,'numtel');" name="numtel" type="number" />
+    <legend> A9. Composition du Ménage:</legend>      
+                     <table>        
+                     <tr>
+                        <td>N. Prénoms</td>
+                        <td>Age</td>
+                        <td>Sexe</td>
+                        <td>Exerce dans les mines</td>
+                        <td>Employeur</td>
+                        <td>Activité <br/> principale</td>
+                     </tr>
+                     <tr>
+                        <td><input id="np1" onkeydown="prevent_num(event,'np1');" name="np1" type="text" /></td>
+                        <td><input placeholder="nombre à 2 chiffres" maxlength="2" id="age1"  name="age1" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe1" name="sexe1" type="number" /></td>                                       
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine1"  name="mine1" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur1" name="employeur1" type="number" /></td>
+                        <td><input id="actpr1" onkeydown="prevent_num(event,'actpr1');"   name="actpr1" type="text" /></td>    
+                     </tr>
+                     <!-- ligne 2 -->
+                      <tr>
+                        <td><input id="np2" onkeydown="prevent_num(event,'np2');" name="np2" type="text" /></td>
+                        <td><input placeholder="nombre à 2 chiffres" maxlength="2" id="age2" name="age2" type="number" /></td>               
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe2" onkeydown="prevent_caract(event,'sexe2');" name="sexe2" type="number" /></td>                                               
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine2" onkeydown="prevent_caract(event,'mine2');" name="mine2" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur2" onkeydown="prevent_caract(event,'employeur2');" name="employeur2" type="number" /></td>
+                        <td><input id="actpr2" onkeydown="prevent_num(event,'actpr2');"   name="actpr2" type="text" /></td>
+                     </tr>
+                        <!-- ligne 3 -->
+                     <tr>
+                        <td><input id="np3" onkeydown="prevent_num(event,'np3');" name="np3" type="text" /></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age3" onkeydown="prevent_caract(event,'age3');" name="age3" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe3" onkeydown="prevent_caract(event,'sexe3');" name="sexe3" type="number" /></td>                                                
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine3" onkeydown="prevent_caract(event,'mine3');" name="mine3" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur3" onkeydown="prevent_caract(event,'id_employeur3');" name="employeur3" type="number" /></td>
+                        <td><input id="actpr3" onkeydown="prevent_num(event,'actpr3');"   name="actpr3" type="text" /></td>
+                     </tr>
+                        <!-- ligne  4 -->
+                         <tr>
+                        <td><input id="np4" onkeydown="prevent_num(event,'np4');" name="np4" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age4" onkeydown="prevent_caract(event,'age4');" name="age4" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe4" onkeydown="prevent_caract(event,'idsexe4');" name="sexe4" type="number" /></td>                   
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine4" onkeydown="prevent_caract(event,'mine4');" name="mine4" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur4" onkeydown="prevent_caract(event,'employeur4');" name="employeur4" type="number" /></td>
+                        <td><input id="actpr4" onkeydown="prevent_num(event,'actpr4');"   name="actpr4" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 5 -->
+                         <tr>
+                        <td><input id="np5" onkeydown="prevent_num(event,'np5');" name="np5" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age5" onkeydown="prevent_caract(event,'age5');" name="age5" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe5" onkeydown="prevent_caract(event,'idsexe5');" name="sexe5" type="number" /></td>                        
+                        
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine5" onkeydown="prevent_caract(event,'mine5');" name="mine5" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur5" onkeydown="prevent_caract(event,'idemployeur5');" name="employeur5" type="number" /></td>
+                        <td><input id="actpr5" onkeydown="prevent_num(event,'actpr5');"   name="actpr5" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 6 -->
+                         <tr>
+                        <td><input id="np6" onkeydown="prevent_num(event,'np6');" name="np6" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age6" onkeydown="prevent_caract(event,'age6');" name="age6" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe6" onkeydown="prevent_caract(event,'idsexe6');" name="sexe6" type="number" /></td>                        
+                        
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine6" onkeydown="prevent_caract(event,'idmine6');" name="mine6" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur6" onkeydown="prevent_caract(event,'idemployeur6');" name="employeur6" type="number" /></td>
+                        <td><input id="actpr6" onkeydown="prevent_num(event,'idactpr6');"   name="actpr6" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 7 -->
+                         <tr>
+                        <td><input id="np7" onkeydown="prevent_num(event,'np7');" name="np7" type="text" /></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age7" onkeydown="prevent_caract(event,'age7');" name="age7" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe7" onkeydown="prevent_caract(event,'idsexe7');" name="sexe7" type="number" /></td>                                                             
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine7" onkeydown="prevent_caract(event,'idmine7');" name="mine7" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur7" onkeydown="prevent_caract(event,'idemployeur7');" name="employeur7" type="number" /></td>
+                        <td><input id="actpr7" onkeydown="prevent_num(event,'idactpr7');"   name="actpr7" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 8 -->
+                         <tr>
+                        <td><input id="np8" onkeydown="prevent_num(event,'np8');" name="np8" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age8" onkeydown="prevent_caract(event,'age8');" name="age8" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe8" onkeydown="prevent_caract(event,'idsexe8');" name="sexe8" type="number" /></td>                        
+                        
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine8" onkeydown="prevent_caract(event,'idmine8');" name="mine8" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur8" onkeydown="prevent_caract(event,'idemployeur8');"  name="employeur8" type="number" /></td>
+                        <td><input id="actpr8" onkeydown="prevent_num(event,'idactpr8');"   name="actpr8" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 9 -->
+                          <tr>
+                        <td><input id="np9" onkeydown="prevent_num(event,'np9');" name="np9" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age9" onkeydown="prevent_caract(event,'age9');" name="age9" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe9" onkeydown="prevent_caract(event,'idsexe9');" name="sexe9" type="number" /></td>                        
+                        
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine9" onkeydown="prevent_caract(event,'idmine9');" name="mine9" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur9" onkeydown="prevent_caract(event,'idemployeur9');" name="employeur9" type="number" /></td>
+                        <td><input id="actpr9" onkeydown="prevent_num(event,'idactpr9');"   name="actpr9" type="text" /></td>
+                    
+                     </tr>
+                        <!-- ligne 10 -->
+                         <tr>
+                        <td><input id="np10" onkeydown="prevent_num(event,'np10');" name="np10" type="text" size="10"/></td>
+                        <td><input placeholder="Entrez un nombre" maxlength="2" id="age10" onkeydown="prevent_caract(event,'age10');" name="age10" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="sexe10" onkeydown="prevent_caract(event,'idsexe10');" name="sexe10" type="number" /></td>                                                                      
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="mine10" onkeydown="prevent_caract(event,'idmine10');" name="mine10" type="number" /></td>
+                        <td><input pattern="[1-2]" placeholder="Entrez 1 ou 2" maxlength="1" id="employeur10" onkeydown="prevent_caract(event,'idemployeur10');" name="employeur10" type="number" /></td>
+                        <td><input id="actpr10" onkeydown="prevent_num(event,'idactpr10');"   name="actpr10" type="text" /></td>                    
+                        </tr>
+                   </table>
+  
+  </div><!-- /content -->
+
+   <div data-role=navbar data-position="fixed">
+                    <ul><li>
+                    <a href="#page_2" data-icon="forward"  > Module B: ACTIVITE PRINCIPALE DU MENAGE </a> 
+                    </li></ul>
+    </div>
+</div><!-- /page -->
+<!--  MODULE B: ACTIVITE PRINCIPALE DU MENAGE  data-add-back-btn=true-->
+            
+            <div  data-role="page"  id="page_2" >
+                <div  data-role="header"   >                  
+                       <h1> MODULE B: ACTIVITE PRINCIPALE DU MENAGE</h1>
+                </div> 
+            <div data-role="content">
+                <p> B1. Quelles sont les différentes activités du Ménage en 2012/2013 </p>
+                <!--  -->
+                <select id='id_act1213' onchange="update_B2()"  autofocus data-native-menu=false multiple=multiple  name="activite1213[]">
+                                                 <option value="" selected></option>
+                                                 <option value="Agriculture">Agriculture</option>
+                                                 <option value="Elevage">Elevage</option>
+                                                 <option value="Pêche">Pêche</option>
+                                                 <option value="Transport">Transport</option>
+                                                 <option value="Artisanat">Artisanat</option>
+                                                 <option value="Extraction Minière">Extraction Minière</option>
+                                                 <option value="Commerce">Commerce</option>
+                                                 <option value="Autres">Autres</option>
+                </select>
+                
+                <p id="libelle_autre_act1213"> B1a. A préciser 
+                <input onkeydown="prevent_num(event,'id_autre_activite1213');" id="id_autre_activite1213" name="autre_activite1213" type="text" />
+                </p>
+                <p> B2. Parmi ces activités, quelle est l'activité principale (la plus rémunératrice) </p>
+                <select  id="id_actpr1213"   onchange="saut_B2()" name="actpr1213">
+                                                 <option value="" selected></option>
+                                                
+                </select>
+                
+                <p> B3. Existe-il des membres du ménage exercant des activités minières en 2012 et ou 2013? :(1. Oui 2. Non) </p>
+                <select id="idB3"   onchange="saut_B3()"  name="B3">
+                                                 <option value="" selected></option>
+                                                 <option value="1" >Oui</option>
+                                                 <option value="2">Non</option>
+                </select> 
+                <p> B4. Même pas une seule fois? :(1. Oui 2. Non) </p>
+                <select  id ="idfreqB3"    onchange="saut_B4()"   name="frequence_B3" >
+                                                <option value="" selected></option>
+                                                 <option value="1">Oui</option>
+                                                 <option value="2">Non</option>
+                </select> 
+                <p> B5. Votre fonction dans les extractions minières</p>
+                <select id="idfonction" onchange="fonct()" name="fonction_cm">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Propriétaire</option>
+                                                 <option value="2">Employé</option>
+                                                 <option value="3">Aide familiale</option>
+                </select> 
+                                  
+                </div>
+                <div data-role="navbar" data-position="fixed">
+                 <ul> 
+                  <li><a href=#page_3 data-icon=forward   > Module C </a></li>
+                 </ul>
+                </div> 
+            </div>
+
+        
+            <!-- MODULE C: SI L'EXPLOITANT MINIER EST PROPRIETAIRE/EMPLOYE -->
+            <div  data-role="page"  id="page_3">
+                <div  data-role="header"   >                  
+                       <h1 id="myfont"> MODULE C : PROPRIETAIRE EXPLOITANT MINIER</h1>
+                </div>    
+                <div data-role="content">                
+                        
+                            <legend>C1. Préciser l'adresse exacte du site:</legend>                  
+                           
+                                <p> C11. Région </p>
+                                 <input placeholder="Entrez un nombre à 2 chiffres" autofocus maxlength="2" id="region_site" onkeydown="prevent_caract(event,'region_site');" name="region_site" type="number" />                                                       
+                                <p> C12. District </p>
+                                   <input placeholder="Entrez un nombre" maxlength="3" id="district_site" onkeydown="prevent_caract(event,'district_site');" name="district_site" type="number" />                                                                                 
+                                <p> C13. Commune </p>
+                                   <input placeholder="Entrez un nombre à 6 chiffres" maxlength="6" id="commune_site" onkeydown="prevent_caract(event,'commune_site');" name="commune_site" type="number" />
+                                <p> C14. Fokontany</p>
+                                   <input placeholder="Entrez un nombre à 2 chiffres" maxlength="2" id="fokontany_site" onkeydown="prevent_caract(event,'c14');" name="fokontany_site" type="number"/>
+                                <p> C15. Combien de km par rapport à l'adresse A2 ou A3 </p>
+                                   <input placeholder="Entrez un nombre à 2 chiffres maximum" maxlength="2" id="km_site" onkeydown="prevent_caract(event,'km_site');" name="km_site" type="number" />                                   
+                                
+                                <div id="si_exploitant" >
+                                  
+                                <p id="libelle_enreg">C2. Etes-vous enregistrés auprès des administrations? </p>
+                                <select  id="id_enreg" onchange="saut_C2()" name="id_enreg">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Oui</option>
+                                                 <option value="2">Non</option>
+                                </select> 
+                                    
+                                <p>C21. Avez-vous une carte statistique?</p>
+                                   <select onchange="saut_C21()"  id="id_carte_stat" name="carte_stat">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Oui</option>
+                                                 <option value="2">Non</option>
+                                   </select>                     
+                                <p>Si C21 = Oui, Numéro de la carte statistique</p>
+                                   <input placeholder="Entrez un nombre à 17 chiffres" id="numcart" onkeypress="saut_C4()" onkeydown="prevent_caract(event,'numcart');" name="carte_stat_num" type="number" />                                                      
+                                <p>C22. Numéro d'identification fiscal (NIF):</p>
+                                <input placeholder="Entrez un nombre à 9 chiffres" maxlength="9" id="idnif" onkeydown="prevent_caract(event,'idnif');" name="idnif" type="number" />                        
+                                <p>C23. Autres renseignements:</p>
+                                <textarea rows="10" cols="10" id="id_autre_enreg" name="id_autre_enreg"></textarea>
+                                
+                                <p>C3. Avez-vous des employés?</p>
+                                <select id="idsi_a_emploi"  onchange="saut_C3()" name="si_a_emploi">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Oui</option>
+                                                 <option value="2">Non</option>
+                                </select> 
+                                
+                                <p id="emploi" >C4. Combien d'employés avez-vous? </p>
+                                    <input placeholder="Entrez un nombre" id="emploi_input" onkeydown="prevent_caract(event,'emploi_input');" name='exploitant' type="number" /> 
+                                
+                                <div data-role="collapsibleset" > 
+                                     <div data-role="collapsible" >
+                                     <h3 >C512. Permanent Hommes</h3>
+                                     <table id="table_ph">
+                                         <tr>
+                                            <td>Fonctions:</td>
+                                            <td>Effectifs:</td>
+                                         </tr>
+                                         <tr>
+                                             <td><input  id="idfonctionph1" name="fonctionph1" type="text" /></td>
+                                             <td><input id="idnbph1" name="nbph1" type="number" /></td>
+                                             
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionph2" name="fonctionph2" type="text" /></td>
+                                             <td><input id="idnbph2" name="nbph2" type="number" /></td>
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionph3" name="fonctionph3" type="text" /></td>
+                                             <td><input id="idnbph3" name="nbph3" type="number" /></td>
+                                         </tr>
+                                     </table>
+                                     <button data-inline="true" type="button" id="ajout_ph" onclick="ajoute('ph')" >AJOUT</button>
+                                </div>
+                                     <div data-role="collapsible">
+                                     <h3>C511. Permanent Femmes</h3>
+                                     <table id="table_pf">
+                                         <tr>
+                                            <td>Fonctions:</td>
+                                            <td>Effectifs:</td>
+                                         </tr>
+                                         <tr>
+                                             <td><input  id="idfonctionpf1" name="fonctionpf1" type="text" /></td>
+                                             <td><input id="idnbpf1" name="nbpf1" type="number" /></td>
+                                             
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionpf2" name="fonctionpf2" type="text" /></td>
+                                             <td><input id="idnbpf2" name="nbpf2" type="number" /></td>
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionpf3" name="fonctionpf3" type="text" /></td>
+                                             <td><input id="idnbpf3" name="nbpf3" type="number" /></td>
+                                         </tr>
+                                     </table>
+                                      <input onclick="ajoute('pf')" data-inline="true" type="button" value="AJOUT" id="ajout_pf"  />
+                                     </div>
+                                     <div data-role="collapsible">
+                                     <h3>C522. Non-permanent Hommes</h3>
+                                     <table id="table_nph">
+                                         <tr>
+                                            <td>Fonctions:</td>
+                                            <td>Effectifs:</td>
+                                         </tr>
+                                         <tr>
+                                             <td><input  id="idfonctionnph1" name="fonctionnph1" type="text" /></td>
+                                             <td><input id="idnbnph1" name="nbnph1" type="number" /></td>
+                                             
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionnph2" name="fonctionnph2" type="text" /></td>
+                                             <td><input id="idnbnph2" name="nbnph2" type="number" /></td>
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionnph3" name="fonctionnph3" type="text" /></td>
+                                             <td><input id="idnbnph3" name="nbnph3" type="number" /></td>
+                                         </tr>
+                                     </table>
+                                      <input onclick="ajoute('nph')" data-inline="true" type="button" value="AJOUT" id="ajout_nph"  />
+                                     </div>
+                                     <div data-role="collapsible">
+                                     <h3>C523. Non-permanent Femmes</h3>
+                                     <table id="table_npf">
+                                         <tr>
+                                            <td>Fonctions:</td>
+                                            <td>Effectifs:</td>
+                                         </tr>
+                                         <tr>
+                                             <td><input  id="idfonctionnpf1" name="fonctionnpf1" type="text" /></td>
+                                             <td><input maxlength="2" id="idnbnpf1" name="nbnpf1" type="number" /></td>
+                                             
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionnpf2" name="fonctionnpf2" type="text" /></td>
+                                             <td><input maxlength="2" id="idnbnpf2" name="nbnpf2" type="number" /></td>
+                                         </tr>
+                                         <tr>
+                                             <td><input id="idfonctionnpf3" name="fonctionnpf3" type="text" /></td>
+                                             <td><input maxlength="2" id="idnbnpf3" name="nbnpf3" type="number" /></td>
+                                         </tr>
+                                     </table>
+                                      <input onclick="ajoute('npf')" data-inline="true" type="button" value="AJOUT" id="ajout_npf"  />
+                                     </div>
+                                </div>
+                                </div>
+                                
+                                <p>C6. Depuis combien d'année exercez-vous cette activité?</p>
+                                <input maxlength="2" id="idnbannee" name="idnbannee" type="number"/>
+                                
+                                <p id="c7">C7. Différents types de produits extraits par votre site par ordre d'importance:</p>
+                                   <select  data-native-menu="false" multiple="multiple"  id="idprod" name="idprod">
+                                                 <option value="" selected></option>
+                                                 <option value="Or">Or</option>
+                                                 <option value="Saphir">Saphir</option>
+                                                 <option value="Emeraude">Emeraude</option>
+                                                 <option value="Plomb">Plomb</option>
+                                                 <option value="Béryl">Béryl</option>
+                                                 <option value="Argent">Argent</option>
+                                                 <option value="Grenat">Grenat</option>
+                                                 <option value="Rubis">Rubis</option>
+                                                 <option value="Tourmaline">Tourmaline</option>
+                                                 <option value="Quartz">Quartz</option>
+                                                 <option value="Nickel">Nickel</option>
+                                                 <option value="Magnétite">Magnétite</option>
+                                                 <option value="Améthyste">Améthyste</option>                                          
+                                                 <option value="Alexdandrite">Alexdandrite</option>
+                                                 <option value="Apatite">Apatite</option>
+                                                 <option value="Béryllium">Béryllium</option>
+                                                 <option value="Chrome">Chrome</option>
+                                                 <option value="Chrysobéryl">Chrysobéryl</option>
+                                                 <option value="Cinabre">Cinabre</option>
+                                                 <option value="Coridon">Coridon</option>
+                                                 <option value="Cristal">Cristal</option>
+                                                 <option value="Cuivre">Cuivre</option>
+                                                 <option value="Fer">Fer</option>
+                                                 <option value="Graphiste">Graphiste</option>
+                                                 <option value="Jaspe">Jaspe</option>
+                                                 <option value="Lignite"> Lignite </option>
+                                                 <option value="Mercure"> Mercure </option>
+                                                 <option value="Oeil de chat">Oeil de chat</option>
+                                                 <option value="Platine">Platine</option>
+                                                 <option value="Sapotine">Sapotine</option>
+                                                 <option value="Spinelle">Spinelle</option>
+                                                 <option value="Titane">Titane</option>
+                                                 <option value="Topaze">Topaze</option>
+                                                 <option value="Uranium">Uranium</option>
+                                                 <option value="Zinc">Zinc</option>
+                                                 <option value="Zircon">Zircon</option>                                        
+                                                 <option value="Phlogopite">Phlogopite</option>
+                                                 <option value="Autres">Autres</option>
+                                   </select>                                             
+          </div>
+          <div data-role=navbar data-position="fixed">
+           <ul>
+            <li> <a href=#page_4 data-icon=forward  onclick="update_C8()"> Module C Production Quantité </a> </li>
+            
+           </ul>
+         </div>
+          </div>
+          
+            <div data-role="page"  id="page_4" >              
+                <div  data-role="header"   >                  
+                       <h1> MODULE C : Production Quantité </h1>
+                </div>    
+            <div data-role="content">                
+                     <div data-role="collapsibleset" >
+                                     
+                     <legend> C8. NIVEAU DE PRODUCTION: </legend> <br/>
+                     
+                     <div data-role="collapsible">
+                     <h3>C81.Produits bruts extrait</h3> 
+                     
+                     <table>
+                     <tr>
+                        <td>Produits:</td>
+                        <td>C811. Type de produit brut extrait</td> 
+                        <td>C812. Quantité journalière</td>
+                        <td>C813. Unité de mesure</td>
+                        <td>C814. Unité de mesure en m3</td>
+                        <td>C815. Quantité totale</td>
+                     </tr>
+                     
+                     <tr>
+                        <td><libelle id="idqp1"   name="produit1" ></libelle></td>
+                        <!--<td>  <libelle  id="idqp1"   name="produit1" type="text"> </libelle> </td> -->
+                        <td>  <input  autofocus id="idtype_produit1"   name="type_produit1" type="text" /> </td>                       
+                        <td><input   id="idqprod1"  onchange="verif_num3('qtite_produit1',1)" placeholder="Entrez un nombre" onkeydown="prevent_caract(event,'idqprod1');" name="qtite_produit1" type="number"/></td>
+                        <td><input id="id_um_xt1" name="um_produit1" type="text"/></td>
+                        <td><input id="idqprod1_kg" name="qtite_produit1_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt1" onkeydown="prevent_caract(event,'idqt1');" name="qtite_tot_produit1" type="number" /></td>
+                     </tr>
+                     
+                     <tr>
+                        <td><libelle id="idqp2" name="produit2"></libelle></td>
+                        <!--<td><libelle id="idqp2" onkeydown="prevent_caract(event,'idqp2');" name="produit2" type="text"></libelle></td>-->
+                        <td>  <input  id="idtype_produit2"   name="type_produit2" type="text" /> </td> 
+                        <td><input id="idqprod2" onchange="verif_num3('qtite_produit2',1)" placeholder="Entrez un nombre" name="qtite_produit2" type="number"/></td>
+                        <td><input id="id_um_xt2" name="um_produit2" type="text"/></td>
+                        <td><input id="idqprod2_kg"  name="qtite_produit2_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt2" onkeydown="prevent_caract(event,'idqt2');" name="qtite_tot_produit2" type="number" /></td>
+                     </tr>
+                     <tr>
+                        <td><libelle id="idqp3" name="produit3"></libelle></td>
+                        <!--<td><libelle id="idqp3" name="produit3" type="text" ></libelle></td>-->
+                        <td>  <input  id="idtype_produit3"   name="type_produit3" type="text" /> </td> 
+                        <td><input onchange="verif_num3('qtite_produit3',1)" placeholder="Entrez un nombre" id="idqprod3" onkeydown="prevent_caract(event,'idqprod3');" name="qtite_produit3" type="number"/></td>
+                        <td><input id="id_um_xt3" name="um_produit3" type="text"/></td>
+                        <td><input id="idqprod3_kg" name="qtite_produit3_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt3" onkeydown="prevent_caract(event,'idqt3');" name="qtite_tot_produit3" type="number" /></td>
+                     </tr>
+                     
+                     <tr>
+                        <td><libelle id="idqp4" name="produit4"></libelle></td>
+                        <!--<td><libelle id="idqp4" name="produit4" type="text" ></libelle></td> -->
+                        <td>  <input  id="idtype_produit4"   name="type_produit4" type="text" /> </td> 
+                        <td><input onchange="verif_num3('qtite_produit4',1)" placeholder="Entrez un nombre" id="idqprod4" onkeydown="prevent_caract(event,'idqprod4');" name="qtite_produit4" type="number"/></td>
+                        <td><input id="id_um_xt4" name="um_produit4" type="text"/></td>
+                        <td><input id="idqprod4_kg" name="qtite_produit4_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt4" onkeydown="prevent_caract(event,'idqt4');" name="qtite_tot_produit4" type="number" /></td>
+                     </tr>
+                     
+                     <tr>
+                        <td><libelle id="idqp5" name="produit5"></libelle></td>
+                       <!-- <td><libelle id="idqp5" name="produit5" type="text" ></libelle></td> -->
+                        <td>  <input  id="idtype_produit5"   name="type_produit5" type="text" /> </td> 
+                        <td><input onchange="verif_num3('qtite_produit5',1)" placeholder="Entrez un nombre" id="idqprod5" onkeydown="prevent_caract(event,'idqprod5');" name="qtite_produit5" type="number"/></td>
+                        <td><input id="id_um_xt5" name="um_produit5" type="text"/></td>
+                        <td><input id="idqprod5_kg" name="qtite_produit5_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt5" onkeydown="prevent_caract(event,'idqt5');" name="qtite_tot_produit5" type="number" /></td>
+                     </tr>
+                     <tr>
+                        <td><libelle id="idqp6" name="produit6"></libelle></td>
+                       <!-- <td><libelle id="idqp6" name="produit6" type="text" ></libelle></td> -->
+                        <td>  <input  id="idtype_produit6"   name="type_produit6" type="text" /> </td> 
+                        <td><input onchange="verif_num3('qtite_produit6',1)" placeholder="Entrez un nombre" id="idqprod6" onkeydown="prevent_caract(event,'idqprod6');" name="qtite_produit6" type="number"/></td>
+                        <td><input id="id_um_xt6" name="um_produit6" type="text"/></td>
+                        <td><input id="idqprod6_kg" name="qtite_produit6_kg" type="number" /></td>
+                        <td><input placeholder="Entrez un nombre" id="idqt6" onkeydown="prevent_caract(event,'idqt6');" name="qtite_tot_produit6" type="number" /></td>
+                     </tr>
+                     
+                     </table> 
+                     
+                     </div>
+                     <div id="si_employe">
+                     
+                     <br/><legend> C82. NIVEAU DE PRODUCTION: Quantité effective produite </legend> <br/> 
+                     <div data-role="collapsible">
+                     <h3>C821.Mois où la production est maximum</h3>
+                     <table>
+                     <tr>
+                        <td>Produits:</td>
+                        <td>Quantité:</td> 
+                        <td>Unité:</td>
+                        <td>Prix:</td>
+                     </tr>
+                    
+                     <tr>
+                        <td>  <libelle id="idxt1_max"   name="xt1_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite1_max"   name="qtite1_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite1_max"   name="unite1_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp1_max"   name="p1_max" type="number"/></td>
+                     </tr>
+
+                      <tr>
+                        <td>  <libelle  id="idxt2_max"   name="xt2_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite2_max"   name="qtite2_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite2_max"   name="unite2_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp2_max"   name="p2_max" type="number"/></td>
+                     </tr>
+                     <tr>
+                        <td>  <libelle  id="idxt3_max"   name="xt3_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite3_max"   name="qtite3_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite3_max"   name="unite3_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp3_max"   name="p3_max" type="number"/></td>
+                     </tr>
+                      <tr>
+                        <td>  <libelle  id="idxt4_max"   name="xt4_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite4_max"   name="qtite4_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite4_max"   name="unite4_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp4_max"   name="p4_max" type="number"/></td>
+                     </tr>
+                      <tr>
+                        <td>  <libelle  id="idxt5_max"   name="xt5_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite5_max"   name="qtite5_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite5_max"   name="unite5_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp5_max"   name="p5_max" type="number"/></td>
+                     </tr>
+                     <tr>
+                        <td>  <libelle id="idxt6_max"   name="xt6_max" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite6_max"   name="qtite6_max" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite6_max"   name="unite6_max" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp6_max"   name="p6_max" type="number"/></td>
+                     </tr>
+                     
+                     </table>
+                     </div>
+                     <div data-role="collapsible">
+                     <h3>C822.Mois où la production est minimum</h3>
+                      <table>
+                     <tr>
+                        <td>Produits:</td>
+                        <td>Quantité:</td> 
+                        <td>Unité:</td>
+                        <td>Prix:</td>
+                     </tr>
+                
+                     <tr>
+
+                        <td>  <libelle  id="idxt1_min"   name="xt1_min" ></libelle> </td> 
+                        <td>  <input  placeholder="Entrez un nombre" id="idqtite1_min"   name="qtite1_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite1_min"   name="unite1_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp1_min"   name="p1_min" type="number"/></td>
+                     </tr>
+                      <tr>
+                        <td>  <libelle  id="idxt2_min"   name="xt2_min" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite2_min"   name="qtite2_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite2_min"   name="unite2_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp2_min"   name="p2_min" type="number"/></td>
+                     </tr>
+                     <tr>
+                        <td>  <libelle  id="idxt3_min"   name="xt3_min" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite3_min"   name="qtite3_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite3_min"   name="unite3_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp3_min"   name="p3_min" type="number"/></td>
+                     </tr>
+                      <tr>
+                        <td>  <libelle  id="idxt4_min"   name="xt4_min" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite4_min"   name="qtite4_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite4_min"   name="unite4_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp4_min"   name="p4_min" type="number"/></td>
+                     </tr>
+                      <tr>
+                        <td>  <libelle  id="idxt5_min"   name="xt5_min"  ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite5_min"   name="qtite5_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite5_min"   name="unite5_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp5_min"   name="p5_min" type="number"/></td>
+                     </tr>
+                     <tr>
+                        <td>  <libelle  id="idxt6_min"   name="xt6_min" ></libelle> </td> 
+                        <td>  <input   placeholder="Entrez un nombre" id="idqtite6_min"   name="qtite6_min" type="number" /> </td>                       
+                        <td>  <input   placeholder="Entrez un nombre" id="idunite6_min"   name="unite6_min" type="number"/></td>
+                        <td>  <input   placeholder="Entrez un nombre" id="idp6_min"   name="p6_min" type="number"/></td>
+                     </tr>
+                     
+                     </table>
+                     
+                     </div>
+                     
+                     </div>
+                     
+                     </div>
+          </div> 
+          <div data-role=navbar data-position="fixed">
+                 <ul>
+                  <li> <a href=#page_5 data-icon=forward > Module C: Calendrier de Production  </a> </li>
+                 </ul>
+           </div>
+            </div> 
+            
+            <div data-role="page"  id="page_5" >                
+                <div data-role="header"   >                  
+                       <h1> MODULE C : Calendrier de production</h1>
+                </div>    
+                <div data-role="content" >                
+                     <legend id="libelle_calendrier"> C9. CALENDRIER ANNUEL DES ACTIVITES DE VOTRE SITE D'EXPLOITATION MINIER: </legend>
+                     <p>C9.1. Période d'exploitation:</p>
+                             <select onchange="saut_C9()" id="idperiode_exploit" autofocus data-native-menu="false" multiple="multiple"  name="periode_exploit[]">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Janvier</option>
+                                                 <option value="2">Février</option>
+                                                 <option value="3">Mars</option>
+                                                 <option value="4">Avril</option>
+                                                 <option value="5">Mai</option>
+                                                 <option value="6">Juin</option>
+                                                 <option value="7">Juillet</option>
+                                                 <option value="8">Aout</option>
+                                                 <option value="9">Septembre</option>
+                                                 <option value="10">Octobre</option>
+                                                 <option value="11">Novembre</option>
+                                                 <option value="12">Décembre</option>
+                            </select>
+                     <p>C9.2. Période de repos:</p>
+                             <select id="idperiode_repos" data-native-menu="false" multiple="multiple"  name="periode_repos[]">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Janvier</option>
+                                                 <option value="2">Février</option>
+                                                 <option value="3">Mars</option>
+                                                 <option value="4">Avril</option>
+                                                 <option value="5">Mai</option>
+                                                 <option value="6">Juin</option>
+                                                 <option value="7">Juillet</option>
+                                                 <option value="8">Aout</option>
+                                                 <option value="9">Septembre</option>
+                                                 <option value="10">Octobre</option>
+                                                 <option value="11">Novembre</option>
+                                                 <option value="12">Décembre</option>
+                            </select>
+                     <p>C9.3. Niveau de production:</p>
+                     <table>
+                     <tr>                  
+                        <td>Janv</td>
+                        <td>Fév</td>
+                        <td>Mars</td>
+                        <td>Avr</td>
+                        <td>Mai</td>
+                        <td>Juin</td>
+                        <td>Juil</td>
+                        <td>Aout</td>
+                        <td>Sept</td>
+                        <td>Oct</td>
+                        <td>Nov</td>
+                        <td>Dec</td>
+                     </tr>
+                     <tr>
+                        <td><input id="idniv1" name="niv1" type="text" /></td>
+                        <td><input id="idniv2" name="niv2" type="text"/></td>
+                        <td><input id="idniv3" name="niv3" type="text"/></td>
+                        <td><input id="idniv4" name="niv4" type="text" /></td>
+                        <td><input id="idniv5" name="niv5" type="text" /></td>
+                        <td><input id="idniv6" name="niv6" type="text" /></td>
+                        <td><input id="idniv7" name="niv7" type="text"/></td>
+                        <td><input id="idniv8" name="niv8" type="text"/></td>
+                        <td><input id="idniv9" name="niv9" type="text" /></td>
+                        <td><input id="idniv10" name="niv10" type="text" /></td>
+                        <td><input id="idniv11" name="niv11" type="text" /></td>
+                        <td><input id="idniv12" name="niv12" type="text" /></td>
+                     </tr>                  
+                     </table> 
+                     <p>C10. Nombre de jours de repos dans la semaine</p> 
+                     <input placeholder="Entrez un chiffre à 1 chiffre" maxlength="1" pattern="^[0-6]" id="idnbjr" name="idnbjr" type="number" />
+                     <p>C11. Par rapport à 2012, comment la production de 2013 a-t-elle évolué?(1. Hausse 2. Stable 3. Baisse )</p>
+                     <select data-native-menu="false" id="id_evoprod" name="id_evoprod">
+                                                 <option value="" selected></option>
+                                                 <option value="1">Hausse</option>
+                                                 <option value="2">Stable</option>
+                                                 <option value="3">Baisse</option>
+                                                 </select>
+                    <p id="libelle_wage"> D7. Votre salaire moyen?
+                    <input maxlength="10" id="idwage" name="idwage" placeholder="Entrez un nombre" type="number" /> 
+                    </p>
+          </div> 
+          <div data-role="navbar" data-position="fixed">
+                 <ul>
+                   <li><a id="idpg7" href=#page_6 data-icon=forward > Module C: Achats fourniture et Consommables </a> </li>
+                 </ul>
+           </div>
+            </div> 
+            <div data-role="page"  id="page_6" >
+                
+                <div  data-role="header"   >                  
+                       <h1> MODULE C : Achats fourniture et Consommables </h1>
+                </div>    
+                <div data-role="content">                
+                     
+                     <legend>C12. Achats fournitures et Consommables:</legend>
+                     <table>
+                     <tr>                  
+                        <td>Libellés</td>
+                        <td>Périodicité de remplacement</td>
+                        <td>Nombre/Quantité</td>
+                        <td>P.U (en ariary)</td>
+                     </tr>
+                     <tr>
+                        <td><input autofocus id="idlibelle1" name="libelle1" type="text" /></td>
+                        <td><input id="idrplct1" name="rplct1" type="text"/></td>
+                        <td><input id="id_unite1" placeholder="Entrez un nombre" name="unite1" type="number"/></td>
+                        <td><input id='idpu1' onkeydown="prevent_caract(event,'idpu1');" placeholder="Entrez un nombre" name="pu1" type="number" onchange='verif_num3("pu1",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle2" name="libelle2" type="text" /></td>
+                        <td><input id="idrplct2" name="rplct2" type="text"/></td>
+                        <td><input id="id_unite2" placeholder="Entrez un nombre" name="unite2" type="number"/></td>
+                        <td><input id='idpu2' onkeydown="prevent_caract(event,'idpu2');" placeholder="Entrez un nombre" name="pu2" type="number" onchange='verif_num3("pu2",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle3" name="libelle3" type="text" /></td>
+                        <td><input id="idrplct3" name="rplct3" type="text"/></td>
+                        <td><input id="id_unite3" placeholder="Entrez un nombre" name="unite3" type="number"/></td>
+                        <td><input id='idpu3' onkeydown="prevent_caract(event,'idpu3');" placeholder="Entrez un nombre" name="pu3" type="number" onchange='verif_num3("pu3",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input name="libelle4" type="text" /></td>
+                        <td><input id="idrplct4" name="rplct4" type="text"/></td>
+                        <td><input id="id_unite4" placeholder="Entrez un nombre" name="unite4" type="number"/></td>
+                        <td><input id='idpu4' onkeydown="prevent_caract(event,'idpu4');" placeholder="Entrez un nombre" name="pu4" type="number" onchange='verif_num3("pu4",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle5" name="libelle5" type="text" /></td>
+                        <td><input id="idrplct5" name="rplct5" type="text"/></td>
+                        <td><input id="id_unite5" placeholder="Entrez un nombre" name="unite5" type="number"/></td>
+                        <td><input id='idpu5' onkeydown="prevent_caract(event,'idpu5');" placeholder="Entrez un nombre" name="pu5" type="number" onchange='verif_num3("pu5",3)'/></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle6" name="libelle6" type="text" /></td>
+                        <td><input id="idrplct6" name="rplct6" type="text"/></td>
+                        <td><input id="id_unite6" placeholder="Entrez un nombre" name="unite6" type="number"/></td>
+                        <td><input id='idpu6' onkeydown="prevent_caract(event,'idpu6');" placeholder="Entrez un nombre" name="pu6" type="number" onchange='verif_num3("pu6",3)' /></td>
+                     </tr>                  
+                     </table> 
+                     
+          </div>
+                <div data-role=navbar data-position="fixed">
+                    <ul> 
+                    <li><a href=#page_7 data-icon=forward  > Module C: Achats de biens durables </a></li>
+                    </ul>
+              </div> 
+           </div> 
+            <div data-role="page"  id="page_7" >
+                
+                <div  data-role="header"   >                  
+                       <h1> MODULE C : Achat de biens durables </h1>
+                </div>    
+                <div data-role="content">                
+                     <legend> C13. Achats de biens durables (INVESTISSEMENT): </legend>
+                     <table>
+                     <tr>                  
+                        <td>Libellés</td>
+                        <td>Périodicité de remplacement</td>
+                        <td>Nombre</td>
+                        <td>P.U (Ar)</td>
+                     </tr>
+                     <tr>
+                        <td><input id="idc13_libelle1" autofocus name="c13_libelle1" type="text" /></td>
+                        <td><input id="idc13_rplct1" name="c13_rplct1" type="text"/></td>
+                        <td><input id="idc13_unite1" placeholder="Entrez un nombre" name="c13_unite1" type="number"/></td>
+                        <td><input id='idc13_pu1' onkeydown="prevent_caract(event,'idc13_pu1');" placeholder="Entrez un nombre" name="c13_pu1" type="number" onchange='verif_num3("c13_pu1",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idc13_libelle2" name="c13_libelle2" type="text" /></td>
+                        <td><input id="idc13_rplct2" name="c13_rplct2" type="text"/></td>
+                        <td><input id="idc13_unite2"  placeholder="Entrez un nombre" name="c13_unite2" type="number"/></td>
+                        <td><input id='idc13_pu2' onkeydown="prevent_caract(event,'idc13_pu2');" placeholder="Entrez un nombre" name="c13_pu2" type="number" onchange='verif_num3("c13_pu2",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idc13_libelle3" name="c13_libelle3" type="text" /></td>
+                        <td><input id="idc13_rplct3" name="c13_rplct3" type="text"/></td>
+                        <td><input id="idc13_unite3" placeholder="Entrez un nombre" name="c13_unite3" type="number"/></td>
+                        <td><input id='idc13_pu3' onkeydown="prevent_caract(event,'idc13_pu3');" placeholder="Entrez un nombre" name="c13_pu3" type="number" onchange='verif_num3("c13_pu3",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idc13_libelle4" name="c13_libelle4" type="text" /></td>
+                        <td><input id="idc13_rplct4" name="c13_rplct4" type="text"/></td>
+                        <td><input id="idc13_unite4" placeholder="Entrez un nombre" name="c13_unite4" type="number"/></td>
+                        <td><input id='idc13_pu4' onkeydown="prevent_caract(event,'idc13_pu4');" placeholder="Entrez un nombre" name="c13_pu4" type="number" onchange='verif_num3("c13_pu4",3)' /></td>
+                     </tr>
+                     <tr>
+                        <td><input id="idc13_libelle5" name="c13_libelle5" type="text" /></td>
+                        <td><input id="idc13_rplct5" name="c13_rplct5" type="text"/></td>
+                        <td><input id="idc13_unite5" placeholder="Entrez un nombre" name="c13_unite5" type="number"/></td>
+                        <td><input id='idc13_pu5' onkeydown="prevent_caract(event,'idc13_pu5');" placeholder="Entrez un nombre" name="c13_pu5" type="number" onchange='verif_num3("c13_pu5",3)' /></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idc13_libelle6" name="c13_libelle6" type="text" /></td>
+                        <td><input id="idc13_rplct6" name="c13_rplct6" type="text"/></td>
+                        <td><input id="idc13_unite6" placeholder="Entrez un nombre" name="c13_unite6" type="number"/></td>
+                        <td><input id='idc13_pu6' onkeydown="prevent_caract(event,'idc13_pu6');" placeholder="Entrez un nombre" name="c13_pu6" type="number" onchange='verif_num3("c13_pu6",3)'/></td>
+                     </tr> 
+                                                   
+                     </table>
+                     <p id="c14">C14. Salaire moyen hebdomadaire d'un ouvrier: </p>
+                        <input  onkeydown="prevent_caract(event,'c14_input');" placeholder="Entrez un nombre" id="c14_input" onchange='verif_num3("salaire",4)' name="salaire" type="number" /> 
+                     <p id="c15">C15. Taxes et impôts:</p>
+                        <input onkeydown="prevent_caract(event,'c15_input');" placeholder="Entrez un nombre" id="c15_input" onchange='verif_num3("taxe",4)' name="taxe" type="number" />
+                     <!-- MILA OVAINA Autres depenses liées à l'activité -->
+                     <p id="c16">C16. Autres dépenses liées à l'activité:</p>
+                        <input onkeydown="prevent_num(event,'c16_input');" id="c16_input" name="autres" type="text"/> 
+          </div> 
+          <div data-role="navbar" data-position="fixed">
+                 <ul>
+         <li> <a href="#page_8" data-icon="forward" > Module E: AUTRES ACTIVITES </a> </li>
+          </ul>
+          </div>
+          </div> 
+            <!-- MODULE E -->
+            <div data-role="page"  id="page_8" >                
+                <div  data-role="header"   >                  
+                       <h1> MODULE E : Autres activités </h1>
+                </div>    
+                <div data-role="content"> 
+                 <p>E1.Votre fonction:</p>
+                        <select onchange="saut_E1()" autofocus id="id_autre_fonction" name='autre_fonction'>
+                              <option value="" selected></option>
+                              <option value="1" >Propriétaire</option>
+                              <option value="2" >Employé</option>
+                              <option value="3" >Aide familiale </option>
+                        </select>       
+                     <legend>PRODUCTION ET EMPLOIS:</legend>
+                     <table>
+                     <tr>
+                        <td>Produits</td>                  
+                        <td>E21. Nombre de mois d'activité dans l'année</td>
+                        <td>E22. Revenu annuel (en Ar)</td>                    
+                     </tr>
+                     <tr>
+                        <td><libelle>Agriculture</libelle></td>
+                        <td><input pattern="[0-9]{2}" onkeydown="prevent_caract(event,'id_agri_e1');" maxlength="2" placeholder="nombre <=12"  id="id_agri_e1" name="id_agri_e1" type="number" /></td>
+                        <td><input id="id_agri_e2" onkeydown="prevent_caract(event,'id_agri_e2');" onchange='verif_num3("agri_e2",5)' placeholder="Entrez un nombre" name="id_agri_e2" type="number"/></td>
+                     </tr> 
+                     <tr>
+                        <td><libelle>Elevage</libelle></td>
+                        <td><input pattern="[0-9]{2}" id='id_el_e1' onkeydown="prevent_caract(event,'id_el_e1');" maxlength='2' placeholder="nombre <=12" name="id_el_e1" type="number" /></td>
+                        <td><input id='id_el_e2' onkeydown="prevent_caract(event,'id_el_e2');" onchange='verif_num3("el_e2",5)' placeholder="Entrez un nombre" name="id_el_e2" type="number"/>
+                        </td>                       
+                     </tr> 
+                     <tr>
+                        <td><libelle>Pêche</libelle></td>
+                        <td><input pattern="[0-9]{2}" id='id_peche_e1' onkeydown="prevent_caract(event,'id_peche_e1');" maxlength='2' placeholder="nombre <=12" name="id_peche_e1" type="number" /></td>
+                        <td><input id='id_peche_e2' onkeydown="prevent_caract(event,'id_peche_e2');" onchange='verif_num3("peche_e2",4)' placeholder="Entrez un nombre" name="id_peche_e2" type="number"/>
+                        </td>         
+                     </tr> 
+                     <tr>
+                        <td><libelle>Transport</libelle></td>
+                        <td><input pattern="[0-9]{2}" maxlength='2' placeholder="nombre <=12" id="id_transp_e1" name="id_transp_e1" type="number" /></td>
+                        <td><input onchange='verif_num3("transp_e2",4)' placeholder="Entrez un nombre" id="id_transp_e2" name="id_transp_e2" type="number"/>
+                        </td>          
+                     </tr>
+                     <tr>
+                        <td><libelle>Artisanat</libelle></td>
+                        <td><input pattern="[0-9]{2}" maxlength='2' placeholder="nombre <=12" id="id_art_e1" name="id_art_e1" type="number" /></td>
+                        <td><input onchange='verif_num3("art_e2",4)' placeholder="Entrez un nombre" id="id_art_e2" name="id_art_e2" type="number"/>
+                        </td>              
+                     </tr> 
+                     <tr>
+                        <td><libelle>Commerce</libelle></td>
+                        <td><input pattern="[0-9]{2}" maxlength='2' placeholder="nombre <=12" id="id_cce_e1" name="id_cce_e1" type="text" /></td>
+                        <td><input onchange='verif_num3("cce_e2",4)' placeholder="Entrez un nombre" id="id_cce_e2" name="id_cce_e2" type="number"/>
+                        </td>  
+                     </tr>                       
+                     </table>
+                     
+          </div>
+          <div data-role="navbar" data-position="fixed">
+             <ul> 
+              <li><a href="#page_9" data-icon="forward" > Module E: Matières premières, C.I, Investissement </a></li>
+             </ul> 
+          </div>
+          </div> 
+            <div data-role="page"  id="page_9" >
+                
+                <div  data-role="header"   >                  
+                       <h1> MODULE E : Autres activités </h1>
+                </div>    
+                <div data-role="content" >                
+                     
+                     <table>
+                     <tr>
+                        <td>Libellés</td>                  
+                        <td>E31. Valeur d'Achat de M1 (en Ar)</td>
+                        <td>E32. Valeur d'Achat de fournitures/consommables(en Ar)</td>
+                        <td>E33. Achat de biens durables(en Ar)</td>
+                     </tr>
+                     <tr>
+                        <td><input autofocus id="idlibelle11" name="libelle11" type="text" /></td>
+                        <td><input   id="id_achat_e51" onchange='verif_num3("achat_e51",4)' placeholder="Entrez un nombre" name="achat_e51" type="number" /></td>
+                        <td><input id="id_e61" onchange='verif_num3("e61",4)' placeholder="Entrez un nombre" name="e61" type="number"/></td>
+                        <td><input id="id_e71" onchange='verif_num3("e71",4)' placeholder="Entrez un nombre" name="e71" type="number"/></td>
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle12" name="libelle12" type="text" /></td>
+                        <td><input id="id_achat_e52" onchange='verif_num3("achat_e52",4)' placeholder="Entrez un nombre" name="achat_e52" type="number" /></td>
+                        <td><input id="id_e62" onchange='verif_num3("e62",4)' placeholder="Entrez un nombre" name="e62" type="number"/></td>
+                        <td><input id="id_e72" onchange='verif_num3("e72",4)' placeholder="Entrez un nombre" name="e72" type="number"/></td>
+                        
+                     </tr> 
+                     <tr>
+                        <td><input id="idlibelle13" name="libelle13" type="text" /></td>
+                        <td><input id="id_achat_e53" onchange='verif_num3("achat_e53",4)' placeholder="Entrez un nombre" name="achat_e53" type="number" /></td>
+                        <td><input id="id_e63" onchange='verif_num3("e63",4)' placeholder="Entrez un nombre" name="e63" type="number"/></td>
+                        <td><input id="id_e73" onchange='verif_num3("e73",4)' placeholder="Entrez un nombre" name="e73" type="number"/></td>
+                        
+                     </tr>
+                     <tr>
+                        <td><input id="idlibelle14" name="libelle14" type="text" /></td>
+                        <td><input id="id_achat_e54" onchange='verif_num3("achat_e54",4)' placeholder="Entrez un nombre" name="achat_e54" type="number" /></td>
+                        <td><input id="id_e64" onchange='verif_num3("e64",4)' placeholder="Entrez un nombre" name="e64" type="number"/></td>
+                        <td><input id="id_e74" onchange='verif_num3("e74",4)' placeholder="Entrez un nombre" name="e74" type="number"/></td>
+                        
+                     </tr>
+                     <tr>
+                        <td><input id="idlibelle15" name="libelle15" type="text" /></td>
+                        <td><input id="id_achat_e55" onchange='verif_num3("achat_e55",4)' placeholder="Entrez un nombre" name="achat_e55" type="number" /></td>
+                        <td><input id="id_e65" onchange='verif_num3("e65",4)' placeholder="Entrez un nombre" name="e65" type="number"/></td>
+                        <td><input id="id_e75" onchange='verif_num3("e75",4)' placeholder="Entrez un nombre" name="e75" type="number"/></td>
+                        
+                     </tr>
+                     <tr>
+                        <td><input id="idlibelle16" name="libelle16" type="text" /></td>
+                        <td><input id="id_achat_e56" onchange='verif_num3("achat_e56",4)' placeholder="Entrez un nombre" name="achat_e56" type="number" /></td>
+                        <td><input id="id_e66" onchange='verif_num3("e66",4)' placeholder="Entrez un nombre" name="e66" type="number"/></td>
+                        <td><input id="id_e76" onchange='verif_num3("e76",4)' placeholder="Entrez un nombre" name="e76" type="number"/></td>
+                        
+                     </tr>                       
+                     </table>
+                     
+          </div> 
+          <div data-role="navbar" data-position="fixed" >
+             <ul>
+               <li> <a href="#page_10" data-icon="forward" > Module F: Renseignements sur les agents d'enquête </a> </li>
+             </ul>
+          </div>
+          </div> 
+            
+            <!-- MODULE F -->
+            <div data-role="page"  id="page_10" >
+            <div  data-role="header"   >                  
+                       <h1> MODULE F : Renseignements sur les agents d'enquête </h1>
+            </div>
+            <div data-role="content">  
+            <p> Prénoms et nom enqueteur :</p>
+               <input autofocus id="mynpenq" onkeydown="prevent_num(event,'mynpenq');" name="Pren_nom_enq" type="text" /> 
+            <p> Prénoms et nom superviseur :</p>
+               <input id="mynpsup"  onkeydown="prevent_num(event,'mynpsup');" name="Pren_nom_sup" type="text" /> 
+            </div>
+            <button type="button" class="submit">Insert data and continue</button>
+        
+        <div data-role="footer" data-position="fixed" >
+             <h2> Copyright, Herimanitra Ranaivoson,2014, tous droits réservés </h2>   
+        </div>
+        </div>
+</template>
+
+
+
+
+    

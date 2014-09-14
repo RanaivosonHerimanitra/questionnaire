@@ -1,0 +1,41 @@
+      .ui-page { 
+            background: Khaki      ;
+            color: #666;
+            font-family: 'Overlock SC', cursive;
+           }
+           .ui-btn {
+           color: #fff;
+           cursor: pointer;
+           font-family: 'Overlock SC', cursive;
+           text-decoration: none;
+           text-transform: uppercase;
+           background: -webkit-gradient( linear,left top, left bottom, from(LightCyan  ), to(LightSeaGreen  ) ) ;
+           background: -webkit-linear-gradient ( top, LightCyan  , LightSeaGreen   ) ;
+           background: -moz-linear-gradient(top, LightCyan  , LightSeaGreen  );
+           background: -o-linear-gradient(top, LightCyan  , LightSeaGreen  );
+           }          
+           legend {
+           padding-left: 1em;
+           padding-right: 1em;
+           font-family: 'Overlock SC', cursive;
+           font-size: 1.2em;
+           font-weight: 400;
+           color: #333;
+           border-bottom: 1px solid #333;
+           }
+           
+      .ui-footer {
+           text-align: center;
+           background: -webkit-gradient( linear,left top, left bottom, from(LightSteelBlue   ), to(LemonChiffon   ) ) ;
+           background: -webkit-linear-gradient( top, LightSteelBlue   , LemonChiffon    ) ;
+           background: -moz-linear-gradient(top, LightSteelBlue   , LemonChiffon   );
+           background: -o-linear-gradient(top, LightSteelBlue   , LemonChiffon   );
+           }
+      .ui-header {
+           text-align: center;
+           background: -webkit-gradient( linear,left top, left bottom, from(LightSteelBlue   ), to(LemonChiffon   ) ) ;
+           background: -webkit-linear-gradient( top, LightSteelBlue   , LemonChiffon    ) ;
+           background: -moz-linear-gradient(top, LightSteelBlue   , LemonChiffon   );
+           background: -o-linear-gradient(top, LightSteelBlue   , LemonChiffon   );
+           }
+   

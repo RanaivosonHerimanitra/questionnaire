@@ -1,0 +1,41 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "grounddb": {},
+      "autoform": {}
+    },
+    "packages": {
+      "grounddb": {
+        "git": "https://github.com/GroundMeteor/Meteor-GroundDB.git",
+        "tag": "v0.0.21",
+        "commit": "7132b9dbb1dc681fd940a31bc586de059b3871bb"
+      },
+      "autoform": {
+        "git": "https://github.com/aldeed/meteor-autoform.git",
+        "tag": "v0.16.1",
+        "commit": "34a447fd3a1b3164c78f865aabbac3ddc2d033fb"
+      },
+      "ejson-minimax": {
+        "git": "https://github.com/GroundMeteor/ejson-minimax.git",
+        "branch": "master",
+        "commit": "87e77a2e1704f0ae2d2a7b914030b898519f7964"
+      },
+      "simple-schema": {
+        "git": "https://github.com/aldeed/meteor-simple-schema.git",
+        "tag": "v0.7.0",
+        "commit": "77d267aec4ba8a70f677e5d9ef9fb91fb0e3f0f6"
+      },
+      "collection2": {
+        "git": "https://github.com/aldeed/meteor-collection2.git",
+        "tag": "v0.4.6",
+        "commit": "80554182486be0d8e74f7ed02194a5649d712e27"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
+      }
+    }
+  }
+}
